@@ -11,7 +11,10 @@ in (import nixpkgs {}).callPackage (
   stdenvNoCC.mkDerivation {
     name = "os-lectures-0";
 
-    src = fetchgit (builtins.fromJSON (lib.readFile ./repo.json));
+    src = fetchgit {
+      inherit (builtins.fromJSON (lib.readFile ./repo.json))
+        url rev sha256 fetchSubmodules;
+    };
 
     nativeBuildInputs = [ texlive.combined.scheme-full pdftk ];
 

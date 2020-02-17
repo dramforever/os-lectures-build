@@ -9,12 +9,13 @@ jobs:
       - run:
           name: Update repo.json
           command: |
-            nix run nixpkgs.nix-prefetch-git -c nix-prefetch-git --url "https://github.com/LearningOS/os-lectures.git" > repo.json
+            /root/.nix-profile/bin/nix run nixpkgs.nix-prefetch-git -c \
+              nix-prefetch-git --url "https://github.com/LearningOS/os-lectures.git" > repo.json
 
       - run:
           name: Build
           command: |
-            nix-build
+            /root/.nix-profile/bin/nix-build
 
       - store_artifacts:
           path: result
