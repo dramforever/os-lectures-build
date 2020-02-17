@@ -5,11 +5,27 @@ let
   };
 
 in (import nixpkgs {}).callPackage (
-  { stdenvNoCC, fetchgit, lib
-  , noto-fonts, noto-fonts-cjk, noto-fonts-extra
+  { stdenvNoCC, fetchgit, lib, makeFontsConf
+  , noto-fonts, noto-fonts-extra
   , texlive, fontconfig, pdftk }:
 
-  stdenvNoCC.mkDerivation {
+  let noto-fonts-cjk-ttc = stdenvNoCC.mkDerivation {
+    name = "noto-fonts-cjk-ttc-2.001";
+    src = fetchgit {
+      url = "https://github.com/googlefonts/noto-cjk.git";
+      rev = "be6c059ac1587e556e2412b27f5155c8eb3ddbe6";
+      sha256 = "0p6mhpg89f9zc4vpi42pn2jm900hs44ns0p2kh6jcs1a2p9ma69w";
+    };
+
+    phases = [ "unpackPhase" "installPhase" ];
+
+    installPhase = ''
+      mkdir -p "$out/share/fonts/noto-cjk"
+      cp *.ttc "$out/share/fonts/noto-cjk"
+    '';
+  };
+
+  in stdenvNoCC.mkDerivation {
     name = "os-lectures-0";
 
     src = fetchgit {
@@ -18,15 +34,20 @@ in (import nixpkgs {}).callPackage (
     };
 
     nativeBuildInputs = [
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-extra
       texlive.combined.scheme-full
       fontconfig
       pdftk
     ];
 
-    FONTCONFIG_FILE = "${fontconfig}/etc/fonts/fonts.conf";
+    FONTCONFIG_FILE = makeFontsConf {
+      fontDirectories = [
+        noto-fonts
+        noto-fonts-cjk-ttc
+        noto-fonts-extra
+      ];
+    };
+
+    phases = [ "unpackPhase" "buildPhase" ];
 
     buildPhase = ''
       shopt -s nullglob
