@@ -6,7 +6,7 @@ let
 
 in (import nixpkgs {}).callPackage (
   { stdenvNoCC, fetchgit, lib
-  , noto-fonts-cjk, noto-fonts-extra
+  , noto-fonts, noto-fonts-cjk, noto-fonts-extra
   , texlive, fontconfig, pdftk }:
 
   stdenvNoCC.mkDerivation {
@@ -18,6 +18,7 @@ in (import nixpkgs {}).callPackage (
     };
 
     nativeBuildInputs = [
+      noto-fonts
       noto-fonts-cjk
       noto-fonts-extra
       texlive.combined.scheme-full
