@@ -21,6 +21,19 @@ jobs:
           name: Copy artifacts
           command: cp -rH result output
 
+      - run
+          name: Release
+          command: |
+            apk add hub
+
+            files=()
+
+            for i in output/*.pdf; do
+              files+=(-a "$i")
+            done
+
+            hub release create "${files[@]}" -m "" $(date +"%Y-%m-%d")
+
       - store_artifacts:
           path: output
           desination: /
