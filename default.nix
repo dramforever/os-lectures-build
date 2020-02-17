@@ -6,7 +6,8 @@ let
 
 in (import nixpkgs {}).callPackage (
   { stdenvNoCC, fetchgit, lib
-  , texlive, pdftk }:
+  , noto-fonts-cjk, noto-fonts-extra
+  , texlive, fontconfig, pdftk }:
 
   stdenvNoCC.mkDerivation {
     name = "os-lectures-0";
@@ -16,7 +17,15 @@ in (import nixpkgs {}).callPackage (
         url rev sha256 fetchSubmodules;
     };
 
-    nativeBuildInputs = [ texlive.combined.scheme-full pdftk ];
+    nativeBuildInputs = [
+      noto-fonts-cjk
+      noto-fonts-extra
+      texlive.combined.scheme-full
+      fontconfig
+      pdftk
+    ];
+
+    FONTCONFIG_FILE = "${fontconfig}/etc/fonts/fonts.conf";
 
     buildPhase = ''
       shopt -s nullglob
