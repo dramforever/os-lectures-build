@@ -3,19 +3,28 @@ version: 2
 jobs:
   build:
     docker:
-      - image: dramforever/os-lectures-build
+      - image: ubuntu:eoan
     steps:
       - checkout
+
       - run:
-          name: Update repo.json
+          name: Install
           command: |
-            /root/.nix-profile/bin/nix run nixpkgs.nix-prefetch-git -c \
-              nix-prefetch-git --url "https://github.com/LearningOS/os-lectures.git" > repo.json
+            apt update
+            apt install -y git fonts-noto-cjk  fonts-noto-cjk-extra fonts-noto-mono texlive-full
 
       - run:
           name: Build
           command: |
-            /root/.nix-profile/bin/nix-build
+            mkdir result
+            git clone --depth=1 https://github.com/LearningOS/os-lectures.git
+            cd os-lectures
+
+            for lec in lecture*; do
+              make -f ../Makefile -C "$lec" all
+              cp "$lec/$lec".pdf ../result/
+              cp "$lec"/*.log ../result/logs
+            done
 
       - store_artifacts:
           path: result
