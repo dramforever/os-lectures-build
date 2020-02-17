@@ -34,6 +34,7 @@ jobs:
 
             cat > release.txt <<END
             Build $(TZ=Asia/Shanghai date +"%Y-%m-%d")
+
             [Build log]($CIRCLE_BUILD_URL)
             END
 
