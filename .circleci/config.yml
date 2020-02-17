@@ -26,13 +26,13 @@ jobs:
           command: |
             apk add hub
 
-            files=()
+            files=""
 
             for i in output/*.pdf; do
-              files+=(-a "$i")
+              files="$files -a $i"
             done
 
-            hub release create "${files[@]}" -m "" $(date +"%Y-%m-%d")
+            hub release create $files -m "" "$(date +"%Y-%m-%d")"
 
       - store_artifacts:
           path: output
