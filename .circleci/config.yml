@@ -21,7 +21,7 @@ jobs:
           name: Copy artifacts
           command: cp -rH result output
 
-      - run
+      - run:
           name: Release
           command: |
             apk add hub
