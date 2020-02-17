@@ -32,7 +32,12 @@ jobs:
               files="$files -a $i"
             done
 
-            hub release create $files -m "" "v$CIRCLE_BUILD_NUM"
+            cat > release.txt <<END
+            Build $(date +"%Y-%m-%d")
+            [Build log]($CIRCLE_BUILD_URL)
+            END
+
+            hub release create $files -F release.txt "v$CIRCLE_BUILD_NUM"
 
       - store_artifacts:
           path: output
