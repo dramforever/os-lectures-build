@@ -1,0 +1,21 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: dramforever/os-lectures-build
+    steps:
+      - checkout
+      - run:
+          name: Update repo.json
+          command: |
+            nix run nixpkgs.nix-prefetch-git -c nix-prefetch-git --url "https://github.com/LearningOS/os-lectures.git" > repo.json
+
+      - run:
+          name: Build
+          command: |
+            nix-build
+
+      - store_artifacts:
+          path: result
+          desination: /
