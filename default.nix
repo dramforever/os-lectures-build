@@ -51,12 +51,14 @@ in (import nixpkgs {}).callPackage (
 
     buildPhase = ''
       shopt -s nullglob
-      mkdir -p "$out/logs"
+      mkdir -p "$out/all_pdfs" "$out/logs"
+
       for lec in lecture*; do
         mkdir -p $out/logs/lec
         make -f "${./Makefile}" -C "$lec"
-        cp "$lec/"*.pdf "$out"
-        cp "$lec/"*.log "$out/logs/$lec"
+        cp "$lec/$lec".pdf "$out"
+        cp "$lec/"*.pdf "$out/all_pdfs"
+        cp "$lec/"*.log "$out/logs"
       done
     '';
   }) {}
