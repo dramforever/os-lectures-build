@@ -17,6 +17,10 @@ jobs:
           command: |
             /root/.nix-profile/bin/nix-build
 
+      - run:
+          name: Copy artifacts
+          command: cp -rH result output
+
       - store_artifacts:
-          path: result
+          path: output
           desination: /
