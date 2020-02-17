@@ -1,6 +1,5 @@
 {
-    "owner": "LearningOS",
-    "repo": "os-lectures",
+    "url": "https://github.com/LearningOS/os-lectures.git",
     "rev": "c8d771c861c15a025f51f5a808d05fce56015df8",
     "sha256": "1wmfkbgfyz51z9abkkd0z4ka2gjlahqy0d1imrxg0wfggsran78i"
 }

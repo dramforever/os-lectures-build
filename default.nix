@@ -4,14 +4,14 @@ let
     sha256 = "1khcsagyah8j7kmmmysvm1bprszp7ivvp0q0jvgy3kgcnxfs3pr9";
   };
 
-in (import <nixpkgs> {}).callPackage (
-  { stdenvNoCC, fetchFromGitHub, lib
+in (import nixpkgs {}).callPackage (
+  { stdenvNoCC, fetchgit, lib
   , texlive, pdftk }:
 
   stdenvNoCC.mkDerivation {
     name = "os-lectures-0";
 
-    src = fetchFromGitHub (builtins.fromJSON (lib.readFile ./repo.json));
+    src = fetchgit (builtins.fromJSON (lib.readFile ./repo.json));
 
     nativeBuildInputs = [ texlive.combined.scheme-full pdftk ];
 

@@ -1,5 +1,6 @@
-FROM terrorjack/pixie
+FROM terrorjack/vanilla:circleci
+
+RUN apk add xz
 
 COPY . /root/workspace
-
-RUN nix-shell -f workspace --run "echo ok"
+RUN cd /root/workspace && nix-shell --run "echo ok"
