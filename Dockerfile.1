@@ -1,5 +1,6 @@
-FROM dramforever/os-lectures-build:texlive
+FROM terrorjack/vanilla:circleci
 
-RUN rm -rf /root/workspace
+RUN apk add xz
+
 COPY . /root/workspace
 RUN cd /root/workspace && nix-shell --run "echo ok"
