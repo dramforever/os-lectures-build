@@ -37,6 +37,10 @@ jobs:
 
             - [Link to commit](https://github.com/LearningOS/os-lectures/tree/$(jq -r '.rev' repo.json))
             - [Build log]($CIRCLE_BUILD_URL)
+
+            Failed lectures:
+
+            $(cat output/failed)
             END
 
             hub release create $files -F release.txt "v$CIRCLE_BUILD_NUM"

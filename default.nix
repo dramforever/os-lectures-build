@@ -53,12 +53,17 @@ in (import nixpkgs {}).callPackage (
       shopt -s nullglob
       mkdir -p "$out/all_pdfs" "$out/logs"
 
+      touch "$out/failed"
+
       for lec in lecture*; do
-        mkdir -p $out/logs/lec
-        make -f "${./Makefile}" -C "$lec"
-        cp "$lec/$lec".pdf "$out"
-        cp "$lec/"*.pdf "$out/all_pdfs"
-        cp "$lec/"*.log "$out/logs"
+        if make -f "${./Makefile}" -C "$lec"; then
+          mkdir -p $out/logs/lec
+          cp "$lec/$lec".pdf "$out"
+          cp "$lec/"*.pdf "$out/all_pdfs"
+          cp "$lec/"*.log "$out/logs"
+        else
+          echo "- $lec" >> "$out/failed"
+        fi
       done
     '';
   }) {}
