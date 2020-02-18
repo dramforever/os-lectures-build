@@ -1,0 +1,13 @@
+diff --git a/preamble.tex b/preamble.tex
+index c8fe2f9..e8918ef 100644
+--- a/preamble.tex
++++ b/preamble.tex
+@@ -15,7 +15,7 @@
+ %      PACKAGES AND THEMES
+ %----------------------------------------------------------------------------------------
+
+-\documentclass[UTF8,aspectratio=169,12pt]{ctexbeamer}
++\documentclass[UTF8,aspectratio=169,12pt,handout]{ctexbeamer}
+
+ \usepackage{hyperref}
+ \hypersetup{

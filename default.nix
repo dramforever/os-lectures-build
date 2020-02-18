@@ -47,7 +47,9 @@ in (import nixpkgs {}).callPackage (
       ];
     };
 
-    phases = [ "unpackPhase" "buildPhase" ];
+    phases = [ "unpackPhase" "patchPhase" "buildPhase" ];
+
+    patches = [ ./handout-mode.patch ];
 
     buildPhase = ''
       shopt -s nullglob
