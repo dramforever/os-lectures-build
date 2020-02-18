@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Release
           command: |
-            apk add hub
+            apk add hub jq
 
             files=""
 
@@ -35,7 +35,8 @@ jobs:
             cat > release.txt <<END
             Build $(TZ=Asia/Shanghai date +"%Y-%m-%d")
 
-            [Build log]($CIRCLE_BUILD_URL)
+            - [Link to commit](https://github.com/LearningOS/os-lectures/tree/$(jq -r '.rev' repo.json))
+            - [Build log]($CIRCLE_BUILD_URL)
             END
 
             hub release create $files -F release.txt "v$CIRCLE_BUILD_NUM"
