@@ -38,7 +38,7 @@ jobs:
             - [Link to commit](https://github.com/LearningOS/os-lectures/tree/$(jq -r '.rev' repo.json))
             - [Build log]($CIRCLE_BUILD_URL)
 
-            Failed lectures:
+            $([ $(wc -l < output/failed) > 0 ] && echo "Failed lectures")
 
             $(cat output/failed)
             END
