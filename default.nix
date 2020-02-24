@@ -58,14 +58,14 @@ in (import nixpkgs {}).callPackage (
       touch "$out/failed"
 
       for lec in lecture*; do
-        if make -f "${./Makefile}" -C "$lec"; then
-          mkdir -p $out/logs/lec
+        if make -k -f "${./Makefile}" -C "$lec"; then
           cp "$lec/$lec".pdf "$out"
-          cp "$lec/"*.pdf "$out/all_pdfs"
-          cp "$lec/"*.log "$out/logs"
         else
           echo "- $lec" >> "$out/failed"
         fi
+
+        cp "$lec/"*.pdf "$out/all_pdfs"
+        cp "$lec/"*.log "$out/logs"
       done
     '';
   }) {}
