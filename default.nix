@@ -64,8 +64,13 @@ in (import nixpkgs {}).callPackage (
           echo "- $lec" >> "$out/failed"
         fi
 
-        cp "$lec/"*.pdf "$out/all_pdfs"
-        cp "$lec/"*.log "$out/logs"
+        for pdf in "$lec/"*.pdf; do
+          cp "$pdf" "$out/all_pdfs"
+        done
+
+        for log in "$lec/"*.log; do
+          cp "$log" "$out/logs"
+        done
       done
     '';
   }) {}
