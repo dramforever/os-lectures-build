@@ -15,6 +15,6 @@
   },
   "homepage": "https://github.com/dramforever/os-lectures-build#readme",
   "dependencies": {
-    "pg": "^7.18.1"
+    "pg": "^8.11.0"
   }
 }
